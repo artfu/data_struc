@@ -48,14 +48,15 @@ int getindex(Seqlist* pseq, double a, double b, double c)
 }
 
 // insert a node to the seqlist
-bool insert(Seqlist* pseq, int index, Node node)
+void insert(Seqlist* pseq, int index, Node node)
 {
-    bool tag = false;
-
     Node* ptem = pseq->pn;
-
-
-    return tag;
+    Node* end = ptem + pseq->len;
+    for (; end > ptem+index; end--) {
+        *(end+1) = *end;
+        end--;
+    }
+    *(ptem+index) = node;
 }
 
 int main(int argc, char** argv)
@@ -64,7 +65,7 @@ int main(int argc, char** argv)
     ptr = init(ptr);
 
     Node* ptmp = ptr->pn;
-    for (int i = 0; i < MAXSIZE; i++) {
+    for (int i = 0; i < MAXSIZE-5; i++) {
         // use the sturcture way
         (*ptmp).x = 1.1 * i;
         (*ptmp).y = 2.2 * i;
@@ -73,7 +74,7 @@ int main(int argc, char** argv)
     }
 
     ptmp = ptr->pn;
-    for (int i = 0; i < MAXSIZE; i++) {
+    for (int i = 0; i < MAXSIZE-5; i++) {
         printf("node[%d] = (%.2f, %.2f, %.2f).\n", i, (*ptmp).x, (*ptmp).y,
                 (*ptmp).z);
         ptmp++;
@@ -81,7 +82,28 @@ int main(int argc, char** argv)
 
     printf("\n");
 
+    /*****************************************************************/
+    /****************  Put your code here   **************************/
+    /*****************************************************************/
 
+    Node example = {
+        .x = 8.88,
+        .y = 88.88,
+        .z = 888.888,
+    };
+    int index = 3;
+    insert(ptr, index, example);
+
+
+    ptmp = ptr->pn;
+    for (int i = 0; i < MAXSIZE; i++) {
+        printf("node[%d] = (%.2f, %.2f, %.2f).\n", i, (*ptmp).x, (*ptmp).y,
+                (*ptmp).z);
+        ptmp++;
+    }
+
+
+    /*****************************************************************/
 
     free(ptr);
     return 0;
