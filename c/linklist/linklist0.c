@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+// THE BASIC CONCEPTION IS WRONG, REWRITE
+/*
 typedef struct {
     double x;
     double y;
@@ -17,7 +19,7 @@ typedef struct {
     Node node;
     Node* next;
     int len;
-} Linklist;
+} Linklist, *PLK;
 
 Linklist* init(Linklist* plk)
 {
@@ -26,16 +28,36 @@ Linklist* init(Linklist* plk)
     plk->len = -1;
     return plk;
 }
+*/
+
+typedef struct {
+    int x;
+    int y;
+} DATA;
+
+// the node have two part:
+// one is data, another is a link to another, aka a pointer
+// But how to count the length of linklist?
+
+typedef struct node {
+    DATA data;
+    struct node* next;
+} Node, *Linklist;
+
+// initialize a link list
+// init a node without data part
+Node* init(Linklist pn)
+{
+    pn = (Node*) malloc(sizeof(Node));
+    pn->next = NULL;
+
+    return pn;
+}
+
 
 int main(int argc, char** argv)
 {
-    Linklist* ptr = NULL;
-    if (init(ptr)) {
-        ptr->node.x = 1.1;
-        ptr->node.y = 2.2;
-        ptr->node.z = 3.3;
-        ptr->len++;
-    }
+    Node* head = init(head);
 
     return 0;
 }
