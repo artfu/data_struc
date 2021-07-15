@@ -45,19 +45,61 @@ typedef struct node {
 } Node, *Linklist;
 
 // initialize a link list
-// init a node without data part
 Node* init(Linklist pn)
 {
-    pn = (Node*) malloc(sizeof(Node));
-    pn->next = NULL;
-
+    pn = NULL;
     return pn;
+}
+
+// make a node
+// means add Data and return a pointer
+Node* make(DATA d)
+{
+    Node* p = (Node*) malloc(sizeof(Node));
+    p->data = d;
+    p->next = NULL;
+    return p;
+}
+
+// and insert to the list
+// we can use pointer to change value that point to
+// rather not pointer itself
+// we want to change pointer value, we need a pointer of pointer
+// let's try this 
+
+void insert(Linklist head, Node* pn)
+{
+    pn->next = head;
+    head = pn;
+}
+
+void pinsert(Linklist* phead, Node** ppn)
+{
+    (*ppn)->next = *phead;
+    *phead = ppn;
 }
 
 
 int main(int argc, char** argv)
 {
-    Node* head = init(head);
+    Linklist head = init(head);
+
+    DATA a;
+    a.x = 5;
+    a.y = 6;
+
+    Node* pa = make(a);
+    printf("Now the node pa:%p\n", pa);
+
+    insert(head, pa);
+    printf("Now the head:%p\n", head);
+    // now the head still at null
+    // but why?
+    // do some pointer test of this
+    // now we konw pointer the difference
+    
+    pinsert(&head, &pa);
+    printf("Now the head:%p\n", head);
 
     return 0;
 }
