@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct int Data;
-typedef struct Node* Link;
-
+typedef int Data;
 typedef struct node {
     Data data;
-    Link next;
-} Node;
+    struct node* next;
+} Node, *Link;
 
 int initList(Link L)
 {
@@ -47,7 +45,7 @@ int putNode(Link L, int i, Data d)
     pn->next = p;
     p->data = d;
 
-    return 0
+    return 0;
 }
 
 int rmNode(Link L, int i)
@@ -64,10 +62,57 @@ int rmNode(Link L, int i)
     return 0;
 }
 
+// add node to head
+void creatHead(Link L, int n)
+{
+    L = (Node*)malloc(sizeof(Node));
+    L->next = NULL;
+
+    for (int i = 0; i < n; ++i) {
+        Node* p = (Node*)malloc(sizeof(Node));
+        printf("Input the %d node value: ", i);
+        scanf("%d", &p->data);
+        p->next = L->next;
+        L->next = p;
+    }
+}
+
+// add node at end
+void creatTail(Link L, int n)
+{
+    L = (Node*) malloc(sizeof(Node));
+    L->next = NULL;
+    Node* tail = L;
+
+    for (int i = 0; i < n; i++) {
+        Node* p = (Node*) malloc(sizeof(Node));
+        printf("Input the %d node value: ", i);
+        scanf("%d", &p->data);
+        p->next = NULL;
+        tail->next = p;
+        tail = p;
+    }
+}
+
+void printLink(Link L)
+{
+    Node* p = L;
+    for (p; p; p = p->next)
+        printf("%d ", p->data);
+    printf("\n");
+}
+
+
 int main(int argc, char* argv[])
 {
-    Node* L = NULL;
-    initList(L);
+    Link L1;
+    Link L2;
+
+    creatHead(L1, 5);
+    creatTail(L2, 5);
+
+    printLink(L1);
+    printLink(L2);
 
     return 0;
 }
