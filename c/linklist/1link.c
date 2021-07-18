@@ -97,7 +97,7 @@ void creatTail(Link L, int n)
 void printLink(Link L)
 {
     Node* p = L;
-    for (p; p; p = p->next)
+    for (; p; p = p->next)
         printf("%d ", p->data);
     printf("\n");
 }
@@ -105,14 +105,19 @@ void printLink(Link L)
 
 int main(int argc, char* argv[])
 {
-    Link L1;
-    Link L2;
+    Node L1;
+    Node L2;
+    
+    initList(&L1);
+    initList(&L2);
 
-    creatHead(L1, 5);
-    creatTail(L2, 5);
+    creatHead(&L1, 5);
+    printf("%p", &L1);
+    Node* p = &L1;
+    creatTail(&L2, 5);
 
-    printLink(L1);
-    printLink(L2);
+    printLink(&L1);
+    printLink(&L2);
 
     return 0;
 }
