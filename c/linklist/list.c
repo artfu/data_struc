@@ -58,7 +58,8 @@ Delete(ElementType X, List L)
 
     P = FindPrevious(X, L);
 
-    if (!IsLast(P, L)) {
+    if (!IsLast(P, L))
+    {
         /* Assumption of header use */
         /* X is found; delete it */
         TmpCell = P->Next;
@@ -110,7 +111,8 @@ DeleteList(List L)
     /* Header assumed */
     P = L->Next;
     L->Next = NULL;
-    while (P != NULL) {
+    while (P != NULL)
+    {
         Tmp = P->Next;
         free(P);
         P = Tmp;
